@@ -1,0 +1,320 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Subscribe') }} - Moikai{% endblock %}
+
+{% block scripts %}
+<script src="https://js.stripe.com/v3/"></script>
+<style>
+    .subscribe-container {
+        max-width: 500px;
+        margin: 40px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 15px;
+    }
+    #card-element {
+        border: 2px solid #007bff;
+        border-radius: 6px;
+        padding: 12px;
+        background: #fff;
+        min-height: 44px;
+    }
+    #card-element.StripeElement--focus {
+        border-color: #0056b3;
+    }
+    #card-element.StripeElement--invalid {
+        border-color: #dc3545;
+    }
+    #card-errors {
+        color: red;
+        margin-top: 10px;
+    }
+    .payment-box {
+        padding: 36px 28px;
+        max-width: 440px;
+        margin: 40px auto 24px auto;
+    }
+    @media (max-width: 768px) {
+        .subscribe-container {
+            margin: 20px 10px;
+            padding: 20px;
+            border-radius: 12px;
+        }
+        .payment-box {
+            padding: 20px 15px;
+            margin: 20px auto 16px auto;
+        }
+        .form-label {
+            font-size: 0.95rem;
+        }
+        .form-control {
+            font-size: 0.95rem;
+            padding: 0.5rem 0.75rem;
+        }
+        .btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.95rem;
+        }
+        .spinner-border {
+            width: 2.5rem !important;
+            height: 2.5rem !important;
+        }
+        .text-muted small {
+            font-size: 0.85rem;
+        }
+        /* Password field styling */
+        .password-field {
+            position: relative;
+        }
+        .password-field input[type="password"] {
+            -webkit-text-security: disc;
+            -moz-text-security: disc;
+            text-security: disc;
+        }
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #B28704;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="subscribe-container">
+        <h2 class="mb-4 text-center h3">{{ _('Subscribe to Moikai') }}</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category if category != 'message' else 'info' }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form id="subscription-form" method="POST">
+            {% if not current_user.is_authenticated %}
+            <div class="mb-3">
+                <label for="email" class="form-label">{{ _('Email Address') }}</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">{{ _('Password (min. 8 characters)') }}</label>
+                <div class="password-field">
+                    <input type="password" class="form-control" id="password" name="password" required minlength="8">
+                    <span class="password-toggle" onclick="togglePassword('password')">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="confirm_password" class="form-label">{{ _('Confirm Password') }}</label>
+                <div class="password-field">
+                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required minlength="8">
+                    <span class="password-toggle" onclick="togglePassword('confirm_password')">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                </div>
+            </div>
+            {% else %}
+                <p class="mb-3">{{ _('Subscribing as: %(email)s', email=current_user.email) }}</p>
+            {% endif %}
+
+            <div class="mb-3">
+                <label class="form-label">{{ _('Learning Direction') }}</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="learning_direction" id="ja-en" value="ja-en" 
+                           {% if current_user.is_authenticated and current_user.learning_direction == 'ja-en' %}checked{% elif not current_user.is_authenticated %}checked{% endif %}>
+                    <label class="form-check-label" for="ja-en">
+                        {{ _('Japanese → English') }}
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="learning_direction" id="en-ja" value="en-ja"
+                           {% if current_user.is_authenticated and current_user.learning_direction == 'en-ja' %}checked{% endif %}>
+                    <label class="form-check-label" for="en-ja">
+                        {{ _('English → Japanese') }}
+                    </label>
+                </div>
+            </div>
+
+            <div class="mb-3 payment-box">
+                <label for="payment-element" class="form-label">{{ _('Payment') }}</label>
+                <div id="payment-element"><!-- Stripe Payment Element will be injected here --></div>
+                <div id="payment-errors" role="alert"></div>
+            </div>
+
+            <!-- Loading Spinner -->
+            <div id="loading-spinner" style="display:none; text-align:center; margin: 20px 0;">
+              <div class="spinner-border text-warning" role="status" style="width: 3rem; height: 3rem;">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              <div style="color: #B28704; font-weight: 600; margin-top: 8px;">{{ _('Processing payment...') }}</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100" id="submit-button">{{ _('Start 7-Day Free Trial & Subscribe') }}</button>
+        </form>
+         <p class="text-muted text-center mt-3"><small>{{ _('By subscribing, you agree to our Terms of Service and Privacy Policy. You will be charged $2.00/month after a 7-day free trial. Cancel anytime.') }}</small></p>
+    </div>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+const stripe = Stripe('{{ stripe_public_key }}');
+const appearance = {
+  theme: 'flat',
+  variables: {
+    colorPrimary: '#FFA000',
+    colorBackground: '#FFF9E5',
+    colorText: '#5A4632',
+    colorDanger: '#dc3545',
+    colorSuccess: '#28a745',
+    colorWarning: '#FFD54F',
+    colorTextSecondary: '#B28704',
+    colorTextPlaceholder: '#B28704',
+    iconColor: '#FFA000',
+    iconHoverColor: '#FFB300',
+    borderRadius: '14px',
+    fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
+    fontSizeBase: '16px',
+    spacingUnit: '4px',
+    boxShadow: '0 6px 32px rgba(90, 70, 50, 0.10)',
+    accessibleColorOnColorPrimary: '#fff',
+    accessibleColorOnColorBackground: '#5A4632',
+  },
+  rules: {
+    '.Input': {
+      border: '2px solid #FFD54F',
+      backgroundColor: '#fff',
+      color: '#5A4632',
+      boxShadow: '0 2px 8px rgba(255, 160, 0, 0.10)',
+      borderRadius: '10px',
+      padding: '12px',
+    },
+    '.Input:focus': {
+      border: '2px solid #FFA000',
+      boxShadow: '0 4px 16px rgba(255, 179, 0, 0.18)',
+    },
+    '.Label': {
+      color: '#B28704',
+      fontWeight: '600',
+    },
+    '.Tab, .Block': {
+      backgroundColor: '#FFF6D6',
+      color: '#5A4632',
+      borderRadius: '10px',
+    },
+    '.Tab--selected, .Tab--selected:focus, .Tab--selected:hover': {
+      backgroundColor: '#FFD54F',
+      color: '#5A4632',
+    },
+    '.Error': {
+      color: '#dc3545',
+      backgroundColor: '#FFE082',
+      border: '1.5px solid #FFD54F',
+      borderRadius: '10px',
+    },
+    '.Button': {
+      backgroundColor: '#FFA000',
+      color: '#fff',
+      borderRadius: '25px',
+      fontWeight: '700',
+      boxShadow: '0 2px 8px rgba(255, 160, 0, 0.15)',
+    },
+    '.Button:hover': {
+      backgroundColor: '#FFB300',
+      color: '#fff',
+    }
+  }
+};
+const elements = stripe.elements({ clientSecret: "{{ client_secret }}", appearance });
+const paymentElement = elements.create('payment');
+paymentElement.mount('#payment-element');
+
+const form = document.getElementById('subscription-form');
+const paymentErrors = document.getElementById('payment-errors');
+const submitButton = document.getElementById('submit-button');
+const loadingSpinner = document.getElementById('loading-spinner');
+
+form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    submitButton.disabled = true;
+    paymentErrors.textContent = '';
+    loadingSpinner.style.display = 'block';
+
+    const {error} = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+            // Optionally pass a return_url for redirect after payment
+            // return_url: 'https://yourdomain.com/subscribe/complete'
+        },
+        redirect: 'if_required'
+    });
+
+    loadingSpinner.style.display = 'none';
+
+    if (error) {
+        paymentErrors.textContent = error.message;
+        submitButton.disabled = false;
+    } else {
+        form.submit();
+    }
+});
+</script>
+<script>
+    function togglePassword(inputId) {
+        const input = document.getElementById(inputId);
+        const icon = input.nextElementSibling.querySelector('i');
+        
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
+</script>
+<script>
+// After Stripe payment confirmation, intercept the form submit to handle 500 errors with a dialog
+form.addEventListener('submit', async function(event) {
+    // This is already handled above for Stripe, so only add error dialog for the final form submit
+    // Intercept the native submit if not already handled
+    if (event.defaultPrevented) return;
+    event.preventDefault();
+    submitButton.disabled = true;
+    loadingSpinner.style.display = 'block';
+    const formData = new FormData(form);
+    const data = {};
+    formData.forEach((value, key) => { data[key] = value; });
+    try {
+        const response = await fetch(window.location.pathname, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+            body: JSON.stringify(data),
+        });
+        loadingSpinner.style.display = 'none';
+        if (response.status === 500) {
+            showErrorDialog("Something went wrong. We're working on it!");
+            submitButton.disabled = false;
+        } else if (response.redirected) {
+            window.location.href = response.url;
+        } else {
+            window.location.reload();
+        }
+    } catch (err) {
+        loadingSpinner.style.display = 'none';
+        showErrorDialog("Something went wrong. We're working on it!");
+        submitButton.disabled = false;
+    }
+});
+</script>
+{% endblock %} 

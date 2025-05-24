@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero">
+    <div class="container text-center py-5">
+        <h1 class="display-4 mb-4" style="color: #8D6748; font-weight: 800;">{{ _('Practice Makes Perfect') }}</h1>
+        <p class="lead mb-4" style="color: #4B3F2A;">{{ _('Daily exercises delivered to your inbox. Start your 7-day free trial today!') }}</p>
+        <div class="d-flex justify-content-center mt-4 gap-3 flex-wrap">
+            <a href="{{ url_for('subscribe') }}" class="btn btn-primary btn-lg cta-btn">{{ _('Start Free Trial') }}</a>
+            <a href="{{ url_for('login') }}" class="btn btn-outline-primary btn-lg cta-btn-alt">{{ _('Log In') }}</a>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <h3 class="text-center mb-4" style="color: #8D6748; font-weight: 700;">{{ _('What\'s included') }}</h3>
+    <div class="row justify-content-center g-4">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="feature-preview">
+                <img src="{{ url_for('static', filename='img/screenshot1.png') }}" alt="Practice Preview" class="img-fluid rounded shadow-sm">
+                <div class="text-center mt-3 feature-title">{{ _('Start your day with daily email practice') }}</div>
+            </div>
+        </div>
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="feature-preview">
+                <img src="{{ url_for('static', filename='img/screenshot2.png') }}" alt="Dashboard Preview" class="img-fluid rounded shadow-sm">
+                <div class="text-center mt-3 feature-title">{{ _('Listen to examples') }}</div>
+            </div>
+        </div>
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="feature-preview">
+                <img src="{{ url_for('static', filename='img/screenshot3.png') }}" alt="Account Preview" class="img-fluid rounded shadow-sm">
+                <div class="text-center mt-3 feature-title">{{ _('Track your progress') }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <section id="pricing" class="py-5">
+        <h2 class="text-center mb-5" style="color: #8D6748; font-weight: 700;">{{ _('Buy Us Coffee') }}</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="pricing-card popular" style="background: #FFF9E5; border-radius: 1em;">
+                    <h3 style="color: #8D6748; font-weight: 700;">{{ _('Monthly Subscription') }}</h3>
+                    <div class="display-4 mb-4" style="color: #3A405A; font-weight: 800;">$2.00</div>
+                    <p class="text-muted">{{ _('per month') }}</p>
+                    <ul class="list-unstyled mb-4">
+                        <li><i class="fas fa-check" style="color: #3A405A; margin-right: 0.5em;"></i>{{ _('7-day free trial') }}</li>
+                        <li><i class="fas fa-check" style="color: #3A405A; margin-right: 0.5em;"></i>{{ _('Daily exercises') }}</li>
+                        <li><i class="fas fa-check" style="color: #3A405A; margin-right: 0.5em;"></i>{{ _('Progress tracking') }}</li>
+                        <li><i class="fas fa-check" style="color: #3A405A; margin-right: 0.5em;"></i>{{ _('Cancel anytime') }}</li>
+                    </ul>
+                    <a href="{{ url_for('subscribe') }}" class="btn btn-primary btn-lg cta-btn w-100">{{ _('Start Free Trial') }}</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %} 

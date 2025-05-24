@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Correct Answer!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #FFF9E5;
+            color: #5C4326;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .success-container {
+            background-color: #e8f5e9;
+            border-radius: 16px;
+            padding: 36px 24px;
+            margin: 32px 0;
+        }
+        .success-icon {
+            font-size: 48px;
+            color: #4caf50;
+            margin-bottom: 20px;
+        }
+        .explanation {
+            background-color: #FFF9E5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 24px 0;
+            text-align: left;
+            color: #5C4326;
+        }
+        a {
+            color: #B28704;
+            text-decoration: underline;
+        }
+        a:hover {
+            color: #FFD700;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 8px;
+                font-size: 1rem;
+            }
+            .success-container, .explanation {
+                padding: 16px 8px;
+                margin: 16px 0;
+            }
+            .success-icon {
+                font-size: 2.2rem;
+            }
+            h1, h2 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-icon">✓</div>
+        <h1>{{ _('Correct Answer!') }}</h1>
+        <p>{{ _('Congratulations! You got it right!') }}</p>
+    </div>
+    
+    <div class="explanation">
+        <h2>{{ _('English Translation:') }}</h2>
+        <p>{{ card.back }}</p>
+    </div>
+    
+    <p>{{ _('Keep up the great work with your language learning journey!') }}</p>
+    <p><a href="{{ url_for('home') }}">{{ _('Return to Home') }}</a></p>
+</body>
+</html> 

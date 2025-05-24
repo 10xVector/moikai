@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8 text-center">
+            <h2 class="display-6">{{ _('Welcome back, %(username)s!', username=current_user.email.split('@')[0]) }}</h2>
+        </div>
+    </div>
+
+    <div class="row text-center mb-5">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h4 class="h5">{{ _('Current Streak') }}</h4>
+                    <p class="display-4 fw-bold text-success mb-0">🔥 {{ streak }} <span class="fs-5">{{ _('day(s)') }}</span></p>
+                    <p class="text-muted mt-2">{{ _('Keep your streak going by practicing every day!') }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h4 class="h5">{{ _('Total Practices') }}</h4>
+                    <p class="display-4 fw-bold mb-0">{{ total_practices }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h4 class="h5">{{ _('Overall Accuracy') }}</h4>
+                    <p class="display-4 fw-bold mb-0">{{ "%.1f"|format(overall_accuracy) }}%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <h4 class="text-center mb-3">{{ _('Your Practice Activity (Last 90 Days)') }}</h4>
+            <div class="heatmap-container bg-light p-3 rounded shadow-sm" style="overflow-x: auto;">
+                <div class="table-responsive">
+                    <table class="table table-bordered heatmap-table" style="min-width: 600px;">
+                        <thead>
+                            <tr>
+                                <!-- Month headers will go here (dynamically generated if complex) -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% set today = heatmap_today %}
+                            {% set start_date = heatmap_start_date %}
+                            {% set days_in_week = 7 %}
+                            {% set total_days = (today - start_date).days + 1 %}
+                            {% set weeks = (total_days / days_in_week) | round(0, 'ceil') | int %}
+                            {% set current_day = start_date %}
+                            <tr>
+                            {% for i in range(total_days) %}
+                                {% set day_to_show = start_date + timedelta(days=i) %}
+                                {% if loop.index0 % days_in_week == 0 and not loop.first %}
+                                    </tr><tr>
+                                {% endif %}
+                                <td class="text-center p-1 {{ 'bg-success text-white' if heatmap_data.get(day_to_show) else 'bg-light' }}" 
+                                    data-bs-toggle="tooltip" 
+                                    title="{{ day_to_show.strftime('%Y-%m-%d') }}: {{ _('Practiced') if heatmap_data.get(day_to_show) else _('No practice') }}">
+                                    <small>{{ day_to_show.day }}</small>
+                                </td>
+                            {% endfor %}
+                            {# Fill remaining cells in the last week #}
+                            {% for i in range(days_in_week - (total_days % days_in_week)) %}
+                                 {% if total_days % days_in_week != 0 %}
+                                    <td class="bg-light"></td>
+                                 {% endif %}
+                            {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <p class="text-center mt-2"><small>{{ _('Green squares indicate days you practiced.') }}</small></p>
+        </div>
+    </div>
+</div>
+
+<style>
+    @media (max-width: 768px) {
+        .display-4 {
+            font-size: 2.5rem;
+        }
+        .card {
+            margin-bottom: 1rem;
+        }
+        .heatmap-container {
+            padding: 0.5rem !important;
+        }
+        .table td {
+            padding: 0.25rem !important;
+        }
+    }
+</style>
+
+<script>
+    // Initialize Bootstrap tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+</script>
+
+{% endblock %} 

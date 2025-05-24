@@ -1,0 +1,21 @@
+{% macro render_field(field) %}
+  <div class="form-group col">{{ field() }}</div>
+{% endmacro %}
+<div class="form-row" style="margin-bottom: 1rem;">
+  <div class="col">
+    {{ field.option1.label }}
+    {{ field.option1(class_='form-control') }}
+  </div>
+  <div class="col">
+    {{ field.option2.label }}
+    {{ field.option2(class_='form-control') }}
+  </div>
+  <div class="col">
+    {{ field.option3.label }}
+    {{ field.option3(class_='form-control') }}
+  </div>
+  <div class="col">
+    {{ field.option4.label }}
+    {{ field.option4(class_='form-control') }}
+  </div>
+</div>

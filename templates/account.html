@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Account') }} - Moikai{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card shadow p-4">
+                <h2 class="mb-4 text-center h4">{{ _('Account Information') }}</h2>
+                
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <p><strong>{{ _('Email:') }}</strong> {{ user.email }}</p>
+                <p>
+                    <strong>{{ _('Subscription status:') }}</strong> 
+                    {% if user.subscription_status == 'trial' %}
+                        {{ _('Active Trial') }}
+                    {% elif user.subscription_status == 'active' %}
+                        {{ _('Active') }}
+                    {% elif user.subscription_status == 'cancelling' %}
+                        {{ _('Cancelling') }}
+                    {% elif user.subscription_status == 'cancelled' %}
+                        {{ _('Cancelled') }}
+                    {% elif user.subscription_status == 'trial_completed' %}
+                        {{ _('Trial Ended') }}
+                    {% else %}
+                        {{ _(user.subscription_status|capitalize) }}
+                    {% endif %}
+                </p>
+
+                {% if user.subscribed or user.subscription_status == 'cancelling' %}
+                    {% if period_end_for_display %}
+                        <p class="text-muted">
+                            {% if user.subscription_status == 'trial' %}
+                                {{ _('Your trial access ends on: %(date)s', date=period_end_for_display.strftime('%Y-%m-%d %H:%M UTC')) }}
+                            {% elif user.subscription_status == 'active' %}
+                                {{ _('Your current billing period ends on: %(date)s', date=period_end_for_display.strftime('%Y-%m-%d %H:%M UTC')) }}
+                            {% elif user.subscription_status == 'cancelling' %}
+                                <div class="alert alert-info">
+                                    {{ _('Your subscription has been cancelled. You can continue using all features until %(date)s.', date=period_end_for_display.strftime('%Y-%m-%d %H:%M UTC')) }}
+                                </div>
+                            {% endif %}
+                        </p>
+                    {% endif %}
+                {% endif %}
+
+                {% if user.subscription_status == 'active' or user.subscription_status == 'trial' %}
+                    <form method="POST" action="{{ url_for('account_unsubscribe') }}" class="mt-3">
+                        <button type="submit" class="btn btn-danger w-100">{{ _('Unsubscribe') }}</button>
+                    </form>
+                {% elif user.subscription_status == 'cancelling' %}
+                    <div class="alert alert-warning mt-3" role="alert">
+                        {{ _('Your subscription is set to cancel. You can continue using all features until the end of your current period.') }}
+                    </div>
+                {% elif show_resubscribe_button %}
+                    <a href="{{ url_for('subscribe') }}" class="btn btn-success w-100 mt-3">{{ _('Subscribe Now') }}</a>
+                {% elif not user.subscribed and user.subscription_status not in ['trial', 'active', 'cancelling'] %}
+                     <div class="alert alert-info mt-3">{{ _('You are not currently subscribed.') }}</div>
+                     <a href="{{ url_for('subscribe') }}" class="btn btn-success w-100 mt-3">{{ _('Subscribe Now') }}</a>
+                {% endif %}
+
+                <div class="mt-4 text-center">
+                    <a href="{{ url_for('home') }}" class="btn btn-outline-secondary">{{ _('Back to Dashboard') }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+@media (max-width: 768px) {
+    .card.shadow.p-4 {
+        padding: 1.2rem !important;
+    }
+    .card h2.h4 {
+        font-size: 1.3rem;
+    }
+    .btn, .btn-danger, .btn-success, .btn-outline-secondary {
+        font-size: 1rem;
+        padding: 0.6rem 1rem;
+    }
+    .alert {
+        font-size: 0.98rem;
+    }
+    .container.py-5 {
+        padding-top: 1.5rem !important;
+        padding-bottom: 1.5rem !important;
+    }
+}
+</style>
+{% endblock %} 

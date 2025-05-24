@@ -1,0 +1,192 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #5A4632;
+    background: #FFF9E5 !important;
+}
+.hero {
+    padding: 80px 0;
+    margin-bottom: 40px;
+    text-align: center;
+}
+@media (max-width: 768px) {
+    .hero {
+        padding: 40px 0;
+        margin-bottom: 20px;
+    }
+    .feature-card {
+        margin-bottom: 15px;
+    }
+    .pricing-card {
+        padding: 20px;
+        margin: 15px 0;
+    }
+    .pricing-card.popular {
+        transform: none;
+    }
+    .feature-icon {
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    .nav-link {
+        padding: 0.5rem 0.5rem;
+    }
+    .lang-toggle {
+        font-size: 1rem;
+    }
+    main.container {
+        padding: 1rem !important;
+    }
+    .feature-preview {
+        padding: 0.75em;
+    }
+    .feature-preview img {
+        height: 240px;
+    }
+    .btn-lg, .cta-btn, .cta-btn-alt {
+        padding: 0.5rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+.feature-card {
+    border: 1.5px solid #FFD54F;
+    border-radius: 10px;
+    background: #FFF6D6;
+    transition: transform 0.3s ease;
+    margin-bottom: 20px;
+}
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+.pricing-card {
+    border: 2px solid #FFC107;
+    border-radius: 15px;
+    background: #FFF3C4;
+    color: #5A4632;
+    padding: 30px;
+    text-align: center;
+    margin: 20px 0;
+    border: 1.5px solid #F0D98C;
+}
+.pricing-card.popular {
+    background: #FFE082;
+    transform: scale(1.05);
+}
+.btn-primary {
+    background-color: #FFA000;
+    border-color: #FF8F00;
+    color: #fff;
+    padding: 10px 30px;
+    border-radius: 25px;
+    font-weight: 700;
+}
+.btn-primary:hover {
+    background-color: #FF8F00;
+    border-color: #FFA000;
+    color: #fff;
+}
+.cta-btn {
+    background: #3A405A;
+    color: #fff;
+    font-weight: 700;
+    border: 2px solid #2C2F3A;
+    border-radius: 0.7em;
+    transition: background 0.2s, border 0.2s;
+}
+.cta-btn:hover {
+    background: #2C2F3A;
+    color: #fff;
+    border-color: #3A405A;
+}
+.cta-btn-alt {
+    color: #3A405A;
+    border: 2px solid #3A405A;
+    font-weight: 700;
+    background: #fff;
+    border-radius: 0.7em;
+    transition: background 0.2s, color 0.2s, border 0.2s;
+}
+.cta-btn-alt:hover {
+    background: #F6E27A;
+    color: #2C2F3A;
+    border-color: #2C2F3A;
+}
+.feature-preview {
+    background: #FFF3C4;
+    border-radius: 1em;
+    border: 1.5px solid #F0D98C;
+    padding: 1em;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.feature-preview img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 0.7em;
+}
+.feature-title {
+    color: #8D6748;
+    font-weight: 600;
+}
+.navbar, .navbar-light.bg-light {
+    background: #FFF6D6 !important;
+    border-bottom: 1.5px solid #FFD54F;
+}
+.navbar-brand, .nav-link {
+    color: #B28704 !important;
+}
+.nav-link.active, .nav-link:focus, .nav-link:hover {
+    color: #FFB300 !important;
+}
+.lang-toggle {
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+.lang-link {
+    text-decoration: none;
+    margin: 0 2px;
+    font-weight: 500;
+    color: #B28704;
+    transition: color 0.2s;
+}
+.lang-link.selected-lang {
+    color: #FFB300;
+    font-weight: bold;
+    cursor: default;
+    pointer-events: none;
+}
+.lang-link.unselected-lang:hover {
+    color: #FFC107;
+    text-decoration: underline;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #B28704;
+}
+.alert-info {
+    background: #FFF6D6;
+    color: #5A4632;
+    border-color: #FFD54F;
+}
+.alert-danger {
+    background: #FFE082;
+    color: #B71C1C;
+    border-color: #FFD54F;
+}
+.card, .feature-preview, .pricing-card {
+    background: #FFF3C4;
+    border-radius: 1em;
+    border: 1.5px solid #F0D98C;
+}
+footer .container {
+    background: #FFF6D6;
+    color: #5A4632;
+    border-top: 2px solid #FFD54F;
+    border-radius: 0 0 12px 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+} 

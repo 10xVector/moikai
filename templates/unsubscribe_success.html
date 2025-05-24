@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Unsubscribe Successful') }} - Moikai{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
+            <div class="card p-4 text-center">
+                <h2 class="mb-4 text-success h4">{{ _('Your subscription has been cancelled') }}</h2>
+                {% if current_period_end %}
+                <div class="alert alert-info mb-4">
+                    <p class="lead mb-0">{{ _('You can continue using all features until %(date)s.', date=current_period_end.strftime('%Y-%m-%d %H:%M UTC')) }}</p>
+                </div>
+                <p class="text-muted">{{ _('You will not be charged again. Your account and progress are safe, and you can rejoin anytime after that to continue your language journey!') }}</p>
+                {% else %}
+                <p class="lead mb-3">{{ _('You have successfully unsubscribed and will not be charged again. Your account and progress are safe, and you can rejoin anytime to continue your language journey!') }}</p>
+                {% endif %}
+                <a href="{{ url_for('home') }}" class="btn btn-primary btn-lg mt-3 w-100">{{ _('Return to Dashboard') }}</a>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+@media (max-width: 768px) {
+    .card.shadow.p-4 {
+        padding: 1.2rem !important;
+    }
+    .h4 {
+        font-size: 1.2rem;
+    }
+    .btn-lg {
+        font-size: 1rem;
+        padding: 0.7rem 1.2rem;
+    }
+}
+</style>
+{% endblock %} 

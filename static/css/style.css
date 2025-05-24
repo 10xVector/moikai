@@ -1,0 +1,65 @@
+.card-title {
+    text-decoration: none;
+}
+
+.options-container {
+    padding: 1em;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.option-box {
+    margin: 0.5em 0;
+    padding: 1em 1.2em;
+    border: 0.15em solid #B28704;
+    border-radius: 0.7em;
+    cursor: pointer;
+    background-color: #FFF9E5;
+    transition: background-color 0.3s, box-shadow 0.2s, transform 0.1s;
+    word-break: break-word;
+    outline: none;
+}
+
+.option-box:hover, .option-box:focus {
+    background-color: #FFE066;
+    color: #7A5B2B;
+    border-color: #FFD700;
+    transform: scale(1.02);
+}
+
+.exercise-container {
+    background-color: #FFF3C4;
+    border-radius: 1em;
+    padding: 2.5em 10vw;
+    margin: 2em auto;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin: 2.5em 0 1.5em 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.option-button, .option-button:visited, .option-button:active, .option-button:hover, .option-button:focus {
+    text-decoration: none;
+    padding: 1em 1.2em;
+    display: block;
+    width: 100%;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
+    outline: none;
+    transition: box-shadow 0.2s, transform 0.1s;
+}
+
+@media (max-width: 600px) {
+    .exercise-container {
+        padding: 2em 2vw;
+    }
+} 

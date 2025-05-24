@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+            <div class="card p-4">
+                <h2 class="mb-4 text-center text-danger h4">{{ _('Are you sure you want to unsubscribe?') }}</h2>
+                <p class="lead text-center mb-4">{{ _('You\'ll lose access to daily exercises, your streak will be paused, and you\'ll miss out on your language progress! 😢') }}</p>
+                <p class="text-center text-muted">{{ _('You can rejoin anytime and your progress will be waiting for you!') }}</p>
+                <form method="POST" class="d-flex flex-column gap-3 mt-4">
+                    <button type="submit" class="btn btn-danger btn-lg w-100">{{ _('Yes, unsubscribe') }}</button>
+                    <a href="{{ url_for('account') }}" class="btn btn-secondary btn-lg w-100">{{ _('Cancel') }}</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+@media (max-width: 768px) {
+    .card.shadow.p-4 {
+        padding: 1.2rem !important;
+    }
+    .h4 {
+        font-size: 1.2rem;
+    }
+    .btn-lg {
+        font-size: 1rem;
+        padding: 0.7rem 1.2rem;
+    }
+}
+</style>
+{% endblock %} 

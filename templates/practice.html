@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Moikai</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=2">
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #FFF9E5;
+            color: #5C4326;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .exercise-container {
+            background-color: #FFF3C4;
+            border-radius: 16px;
+            padding: 36px 24px;
+            margin: 32px 0;
+        }
+        .question {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 24px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin: 24px 0;
+        }
+        .option-button {
+            display: block;
+            width: 100%;
+            padding: 16px 24px;
+            background-color: #FFF9E5;
+            color: #5C4326;
+            border: 2px solid #B28704;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: all 0.2s cubic-bezier(.4,0,.2,1);
+            text-decoration: none;
+        }
+        .option-button:hover {
+            background-color: #FFE066;
+            color: #7A5B2B;
+            border-color: #FFD700;
+            text-decoration: none;
+        }
+        .audio-player {
+            margin-bottom: 18px;
+        }
+        a {
+            color: #B28704;
+            text-decoration: underline;
+        }
+        a:hover {
+            color: #FFD700;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .exercise-container {
+                padding: 20px 15px;
+                margin: 20px 0;
+                border-radius: 12px;
+            }
+            .question {
+                font-size: 1.1em;
+                margin-bottom: 16px;
+            }
+            .options {
+                gap: 10px;
+                margin: 16px 0;
+            }
+            .option-button {
+                padding: 12px 16px;
+                font-size: 1em;
+            }
+            .card {
+                margin-bottom: 20px !important;
+            }
+            .card-body {
+                padding: 15px !important;
+            }
+            .audio-player {
+                margin-bottom: 12px;
+            }
+            audio {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="exercise-container">
+        <h1 class="h3">{{ _('Moikai Exercise') }}</h1>
+        
+        {% if card.audio_path %}
+        <div class="audio-player">
+            <audio controls>
+                <source src="{{ card.audio_path }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        {% endif %}
+        
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title"><span style="text-decoration: none;">{{ card.front }}</span></h5>
+            </div>
+        </div>
+        
+        <div class="options">
+            <a href="{{ url_for('practice', card_id=card.id, answer=card.option_1) }}" class="option-button">
+                1. {{ card.option_1 }}
+            </a>
+            <a href="{{ url_for('practice', card_id=card.id, answer=card.option_2) }}" class="option-button">
+                2. {{ card.option_2 }}
+            </a>
+            <a href="{{ url_for('practice', card_id=card.id, answer=card.option_3) }}" class="option-button">
+                3. {{ card.option_3 }}
+            </a>
+            <a href="{{ url_for('practice', card_id=card.id, answer=card.option_4) }}" class="option-button">
+                4. {{ card.option_4 }}
+            </a>
+        </div>
+    </div>
+    
+    <p><a href="{{ url_for('home') }}">{{ _('Return to Home') }}</a></p>
+    
+    <script>
+        function selectOption(element, answer) {
+            window.location.href = "{{ url_for('practice', card_id=card.id) }}?answer=" + encodeURIComponent(answer);
+        }
+    </script>
+</body>
+</html> 

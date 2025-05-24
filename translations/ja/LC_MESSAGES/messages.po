@@ -1,0 +1,1265 @@
+# Japanese translations for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-05-17 20:24-0700\n"
+"PO-Revision-Date: 2025-05-13 22:23-0700\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: app.py:237
+msgid "You already have an active subscription. Manage it from your account page."
+msgstr "すでに有効なサブスクリプションがあります。アカウントページで管理してください。"
+
+#: app.py:252
+msgid "Email and password fields are required for new users."
+msgstr ""
+
+#: app.py:255
+msgid "Passwords do not match."
+msgstr ""
+
+#: app.py:258
+#, fuzzy
+msgid "Password must be at least 8 characters long."
+msgstr ""
+
+#: app.py:263
+msgid "Email already registered. Please log in or use a different email."
+msgstr ""
+
+#: app.py:266
+msgid "Email already registered. Please log in to subscribe."
+msgstr ""
+
+#: app.py:272
+msgid "Please select a learning direction."
+msgstr ""
+
+#: app.py:389
+#, python-format
+msgid "Successfully subscribed! Your %(status)s starts now."
+msgstr ""
+
+#: app.py:393
+#, python-format
+msgid "Payment failed: %(message)s"
+msgstr ""
+
+#: app.py:397
+#, fuzzy, python-format
+msgid "A Stripe error occurred: %(message)s. Please try again."
+msgstr "Stripeエラーが発生しました：{error}。もう一度お試しください。"
+
+#: app.py:747
+msgid ""
+"Your subscription has been processed. If you had an active plan, it is "
+"now set to cancel."
+msgstr "サブスクリプションの処理が完了しました。有効なプランがあった場合、キャンセルされるように設定されました。"
+
+#: app.py:752
+#, python-brace-format
+msgid "A Stripe error occurred: {error}. Please try again."
+msgstr "Stripeエラーが発生しました：{error}。もう一度お試しください。"
+
+#: templates/account.html:2 templates/base.html:144
+msgid "Account"
+msgstr "アカウント"
+
+#: templates/account.html:9
+msgid "Account Information"
+msgstr "アカウント情報"
+
+#: templates/account.html:22
+msgid "Email:"
+msgstr "メールアドレス："
+
+#: templates/account.html:24
+#, fuzzy
+msgid "Subscription status:"
+msgstr "月額サブスクリプション"
+
+#: templates/account.html:26
+msgid "Active Trial"
+msgstr "トライアル期間中"
+
+#: templates/account.html:28
+#, fuzzy
+msgid "Active"
+msgstr "有効"
+
+#: templates/account.html:30
+#, fuzzy
+msgid "Cancelling"
+msgstr "キャンセル処理中"
+
+#: templates/account.html:32
+#, fuzzy
+msgid "Cancelled"
+msgstr "キャンセル済み"
+
+#: templates/account.html:34
+msgid "Trial Ended"
+msgstr "トライアル終了"
+
+#: templates/account.html:44
+#, python-format
+msgid "Your trial access ends on: %(date)s"
+msgstr "トライアル期間は %(date)s に終了します"
+
+#: templates/account.html:46
+#, python-format
+msgid "Your current billing period ends on: %(date)s"
+msgstr "現在の請求期間は %(date)s に終了します"
+
+#: templates/account.html:49
+#, python-format
+msgid ""
+"Your subscription has been cancelled. You can continue using all features"
+" until %(date)s."
+msgstr "サブスクリプションはキャンセルされました。%(date)s まで全ての機能をご利用いただけます。"
+
+#: templates/account.html:58
+msgid "Unsubscribe"
+msgstr "解約する"
+
+#: templates/account.html:62
+msgid ""
+"Your subscription is set to cancel. You can continue using all features "
+"until the end of your current period."
+msgstr "サブスクリプションはキャンセルされる予定です。現在の期間が終了するまで全ての機能をご利用いただけます。"
+
+#: templates/account.html:65 templates/account.html:68
+#, fuzzy
+msgid "Subscribe Now"
+msgstr "今すぐ登録"
+
+#: templates/account.html:67
+msgid "You are not currently subscribed."
+msgstr "現在サブスクリプションはありません。"
+
+#: templates/account.html:72
+#, fuzzy
+msgid "Back to Dashboard"
+msgstr "ダッシュボードに戻る"
+
+#: templates/base.html:129
+msgid "Home"
+msgstr "ホーム"
+
+#: templates/base.html:138
+#, python-format
+msgid "Welcome, %(email)s"
+msgstr ""
+
+#: templates/base.html:141
+msgid "Logout"
+msgstr ""
+
+#: templates/base.html:148
+msgid "Login"
+msgstr "ログイン"
+
+#: templates/base.html:151 templates/subscribe.html:2
+msgid "Subscribe"
+msgstr "登録"
+
+#: templates/base.html:156
+msgid "EN"
+msgstr ""
+
+#: templates/base.html:158
+msgid "JP"
+msgstr ""
+
+#: templates/dashboard.html:6
+#, python-format
+msgid "Welcome back, %(username)s!"
+msgstr "%(username)sさん、お帰りなさい！"
+
+#: templates/dashboard.html:12
+msgid "Current Streak"
+msgstr "現在の連続日数"
+
+#: templates/dashboard.html:13
+msgid "day(s)"
+msgstr "日"
+
+#: templates/dashboard.html:14
+msgid "Keep your streak going by practicing every day!"
+msgstr "毎日練習して連続日数を伸ばしましょう！"
+
+#: templates/dashboard.html:17
+msgid "Total Practices"
+msgstr "総練習回数"
+
+#: templates/dashboard.html:21
+msgid "Overall Accuracy"
+msgstr "全体的な正答率"
+
+#: templates/dashboard.html:28
+msgid "Your Practice Activity (Last 90 Days)"
+msgstr "あなたの練習アクティビティ（過去90日間）"
+
+#: templates/dashboard.html:51
+msgid "Practiced"
+msgstr "練習済み"
+
+#: templates/dashboard.html:51
+msgid "No practice"
+msgstr "練習なし"
+
+#: templates/dashboard.html:65
+msgid "Green squares indicate days you practiced."
+msgstr "緑色の四角は練習した日を示します。"
+
+#: templates/explanation.html:56
+msgid "Not Quite Right"
+msgstr ""
+
+#: templates/explanation.html:57
+msgid "Don't worry! Learning from mistakes is part of the journey."
+msgstr ""
+
+#: templates/explanation.html:61
+msgid "The correct answer is:"
+msgstr ""
+
+#: templates/explanation.html:65 templates/success.html:53
+msgid "English Translation:"
+msgstr ""
+
+#: templates/explanation.html:69
+msgid "Keep practicing! You'll get it next time."
+msgstr ""
+
+#: templates/explanation.html:70 templates/practice.html:102
+#: templates/success.html:58
+#, fuzzy
+msgid "Return to Home"
+msgstr "ダッシュボードに戻る"
+
+#: templates/home.html:5
+msgid "Practice Makes Perfect"
+msgstr "練習は上達のもと"
+
+#: templates/home.html:6
+msgid ""
+"Daily exercises delivered to your inbox. Start your 7-day free trial "
+"today!"
+msgstr "毎日メールで練習問題をお届けします。7日間の無料トライアルを今すぐ始めましょう！"
+
+#: templates/home.html:8 templates/home.html:58
+msgid "Start Free Trial"
+msgstr "無料トライアルを始める"
+
+#: templates/home.html:9
+msgid "Log In"
+msgstr "ログイン"
+
+#: templates/home.html:15
+msgid "What's included"
+msgstr "含まれる内容"
+
+#: templates/home.html:19
+msgid "Start your day with daily email practice"
+msgstr "毎朝メールで練習問題が届きます"
+
+#: templates/home.html:23
+msgid "Listen to examples"
+msgstr "例文を聞くことができます"
+
+#: templates/home.html:27
+msgid "Track your progress"
+msgstr "進捗を確認できます"
+
+#: templates/home.html:45
+msgid "Buy Us Coffee"
+msgstr "コーヒーをおごってください"
+
+#: templates/home.html:49
+msgid "Monthly Subscription"
+msgstr "月額サブスクリプション"
+
+#: templates/home.html:51
+msgid "per month"
+msgstr "月額"
+
+#: templates/home.html:53
+msgid "7-day free trial"
+msgstr "7日間の無料トライアル"
+
+#: templates/home.html:54
+msgid "Daily exercises"
+msgstr "毎日の練習問題"
+
+#: templates/home.html:55
+msgid "Progress tracking"
+msgstr "進捗管理"
+
+#: templates/home.html:56
+msgid "Cancel anytime"
+msgstr "いつでもキャンセル可能"
+
+#: templates/practice.html:68
+#, fuzzy
+msgid "Moikai Exercise"
+msgstr "毎日の練習問題"
+
+#: templates/subscribe.html:44
+#, fuzzy
+msgid "Subscribe to Moikai"
+msgstr "Moikaiに登録する"
+
+#: templates/subscribe.html:60
+msgid "Email Address"
+msgstr "メールアドレス"
+
+#: templates/subscribe.html:64
+msgid "Password (min. 8 characters)"
+msgstr "パスワード（8文字以上）"
+
+#: templates/subscribe.html:68
+msgid "Confirm Password"
+msgstr "パスワード確認"
+
+#: templates/subscribe.html:72
+#, python-format
+msgid "Subscribing as: %(email)s"
+msgstr "%(email)s として登録中"
+
+#: templates/subscribe.html:76
+msgid "Learning Direction"
+msgstr "学習方向"
+
+#: templates/subscribe.html:81
+msgid "Japanese → English"
+msgstr "日本語 → 英語"
+
+#: templates/subscribe.html:88
+msgid "English → Japanese"
+msgstr "英語 → 日本語"
+
+#: templates/subscribe.html:94
+msgid "Payment"
+msgstr "お支払い"
+
+#: templates/subscribe.html:104
+msgid "Processing payment..."
+msgstr ""
+
+#: templates/subscribe.html:107
+#, fuzzy
+msgid "Start 7-Day Free Trial & Subscribe"
+msgstr "7日間無料トライアルを始めて登録"
+
+#: templates/subscribe.html:109
+msgid ""
+"By subscribing, you agree to our Terms of Service and Privacy Policy. You"
+" will be charged $2.00/month after a 7-day free trial. Cancel anytime."
+msgstr "登録することで、利用規約とプライバシーポリシーに同意したものとみなされます。7日間の無料トライアル後、月額$2.00が請求されます。いつでもキャンセル可能です。"
+
+#: templates/success.html:48
+msgid "Correct Answer!"
+msgstr ""
+
+#: templates/success.html:49
+msgid "Congratulations! You got it right!"
+msgstr ""
+
+#: templates/success.html:57
+msgid "Keep up the great work with your language learning journey!"
+msgstr ""
+
+#: templates/unsubscribe_success.html:2
+#, fuzzy
+msgid "Unsubscribe Successful"
+msgstr "解約する"
+
+#: templates/unsubscribe_success.html:9
+msgid "Your subscription has been cancelled"
+msgstr "サブスクリプションはキャンセルされました"
+
+#: templates/unsubscribe_success.html:12
+#, python-format
+msgid "You can continue using all features until %(date)s."
+msgstr "%(date)s まで全ての機能をご利用いただけます。"
+
+#: templates/unsubscribe_success.html:14
+msgid ""
+"You will not be charged again. Your account and progress are safe, and "
+"you can rejoin anytime after that to continue your language journey!"
+msgstr "今後の請求はありません。アカウントと進捗は安全に保存され、いつでも再開して言語学習を続けることができます！"
+
+#: templates/unsubscribe_success.html:16
+msgid ""
+"You have successfully unsubscribed and will not be charged again. Your "
+"account and progress are safe, and you can rejoin anytime to continue "
+"your language journey!"
+msgstr "サブスクリプションを解約しました。今後の請求はありません。アカウントと進捗は安全に保存され、いつでも再開して言語学習を続けることができます！"
+
+#: templates/unsubscribe_success.html:18
+msgid "Return to Dashboard"
+msgstr "ダッシュボードに戻る"
+
+#: venv/lib/python3.13/site-packages/click/_termui_impl.py:556
+#, python-brace-format
+msgid "{editor}: Editing failed"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/_termui_impl.py:560
+#, python-brace-format
+msgid "{editor}: Editing failed: {e}"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/core.py:1124
+msgid "Aborted!"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/core.py:1349
+#: venv/lib/python3.13/site-packages/click/core.py:1379
+#, python-brace-format
+msgid "(Deprecated) {text}"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/core.py:1396
+msgid "Options"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/core.py:1422
+#, python-brace-format
+msgid "Got unexpected extra argument ({args})"
+msgid_plural "Got unexpected extra arguments ({args})"
+msgstr[0] ""
+
+#: venv/lib/python3.13/site-packages/click/core.py:1438
+#, python-brace-format
+msgid "DeprecationWarning: The command {name!r} is deprecated."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/core.py:1645
+msgid "Commands"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/core.py:1677
+msgid "Missing command."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/core.py:1755
+#, python-brace-format
+msgid "No such command {name!r}."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/core.py:2313
+msgid "Value must be an iterable."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/core.py:2334
+#, python-brace-format
+msgid "Takes {nargs} values but 1 was given."
+msgid_plural "Takes {nargs} values but {len} were given."
+msgstr[0] ""
+
+#: venv/lib/python3.13/site-packages/click/core.py:2783
+#, python-brace-format
+msgid "env var: {var}"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/core.py:2813
+msgid "(dynamic)"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/core.py:2828
+#, python-brace-format
+msgid "default: {default}"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/core.py:2841
+msgid "required"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/decorators.py:457
+#, python-format
+msgid "%(prog)s, version %(version)s"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/decorators.py:520
+msgid "Show the version and exit."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/decorators.py:541
+msgid "Show this message and exit."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/exceptions.py:49
+#: venv/lib/python3.13/site-packages/click/exceptions.py:88
+#, python-brace-format
+msgid "Error: {message}"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/exceptions.py:80
+#, python-brace-format
+msgid "Try '{command} {option}' for help."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/exceptions.py:129
+#, python-brace-format
+msgid "Invalid value: {message}"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/exceptions.py:131
+#, python-brace-format
+msgid "Invalid value for {param_hint}: {message}"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/exceptions.py:187
+msgid "Missing argument"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/exceptions.py:189
+msgid "Missing option"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/exceptions.py:191
+msgid "Missing parameter"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/exceptions.py:193
+#, python-brace-format
+msgid "Missing {param_type}"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/exceptions.py:200
+#, python-brace-format
+msgid "Missing parameter: {param_name}"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/exceptions.py:220
+#, python-brace-format
+msgid "No such option: {name}"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/exceptions.py:232
+#, python-brace-format
+msgid "Did you mean {possibility}?"
+msgid_plural "(Possible options: {possibilities})"
+msgstr[0] ""
+
+#: venv/lib/python3.13/site-packages/click/exceptions.py:270
+msgid "unknown error"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/exceptions.py:277
+#, python-brace-format
+msgid "Could not open file {filename!r}: {message}"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/formatting.py:156
+msgid "Usage:"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/parser.py:233
+#, python-brace-format
+msgid "Argument {name!r} takes {nargs} values."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/parser.py:415
+#, python-brace-format
+msgid "Option {name!r} does not take a value."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/parser.py:476
+#, python-brace-format
+msgid "Option {name!r} requires an argument."
+msgid_plural "Option {name!r} requires {nargs} arguments."
+msgstr[0] ""
+
+#: venv/lib/python3.13/site-packages/click/shell_completion.py:326
+msgid "Shell completion is not supported for Bash versions older than 4.4."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/shell_completion.py:333
+msgid "Couldn't detect Bash version, shell completion is not supported."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/termui.py:158
+msgid "Repeat for confirmation"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/termui.py:174
+msgid "Error: The value you entered was invalid."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/termui.py:176
+#, python-brace-format
+msgid "Error: {e.message}"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/termui.py:187
+msgid "Error: The two entered values do not match."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/termui.py:243
+msgid "Error: invalid input"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/termui.py:773
+msgid "Press any key to continue..."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/types.py:267
+#, python-brace-format
+msgid ""
+"Choose from:\n"
+"\t{choices}"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/types.py:299
+#, python-brace-format
+msgid "{value!r} is not {choice}."
+msgid_plural "{value!r} is not one of {choices}."
+msgstr[0] ""
+
+#: venv/lib/python3.13/site-packages/click/types.py:393
+#, python-brace-format
+msgid "{value!r} does not match the format {format}."
+msgid_plural "{value!r} does not match the formats {formats}."
+msgstr[0] ""
+
+#: venv/lib/python3.13/site-packages/click/types.py:415
+#, python-brace-format
+msgid "{value!r} is not a valid {number_type}."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/types.py:471
+#, python-brace-format
+msgid "{value} is not in the range {range}."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/types.py:612
+#, python-brace-format
+msgid "{value!r} is not a valid boolean."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/types.py:636
+#, python-brace-format
+msgid "{value!r} is not a valid UUID."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/types.py:826
+msgid "file"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/types.py:828
+msgid "directory"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/types.py:830
+msgid "path"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/types.py:881
+#, python-brace-format
+msgid "{name} {filename!r} does not exist."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/types.py:890
+#, python-brace-format
+msgid "{name} {filename!r} is a file."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/types.py:898
+#, python-brace-format
+msgid "{name} {filename!r} is a directory."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/types.py:907
+#, python-brace-format
+msgid "{name} {filename!r} is not readable."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/types.py:916
+#, python-brace-format
+msgid "{name} {filename!r} is not writable."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/types.py:925
+#, python-brace-format
+msgid "{name} {filename!r} is not executable."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/click/types.py:992
+#, python-brace-format
+msgid "{len_type} values are required, but {len_value} was given."
+msgid_plural "{len_type} values are required, but {len_value} were given."
+msgstr[0] ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/rediscli.py:113
+msgid "Cli: Invalid command."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:374
+msgid "File required."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:379
+msgid "Invalid file type."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:404
+msgid "Invalid name"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:774
+#, python-format
+msgid "File \"%(name)s\" already exists."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:819
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:916
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:978
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1031
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1078
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1130
+#: venv/lib/python3.13/site-packages/flask_admin/model/base.py:2290
+msgid "Permission denied."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:912
+msgid "File uploading is disabled."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:923
+#, python-format
+msgid "Successfully saved file: %(name)s"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:927
+#, python-format
+msgid "Failed to save file: %(error)s"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:935
+msgid "Upload File"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:974
+msgid "Directory creation is disabled."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:987
+#, python-format
+msgid "Successfully created directory: %(directory)s"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:991
+#, python-format
+msgid "Failed to create directory: %(error)s"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1001
+msgid "Create Directory"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1027
+msgid "Deletion is disabled."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1036
+msgid "Directory deletion is disabled."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1042
+#, python-format
+msgid "Directory \"%(path)s\" was successfully deleted."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1044
+#, python-format
+msgid "Failed to delete directory: %(error)s"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1050
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1205
+#, python-format
+msgid "File \"%(name)s\" was successfully deleted."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1052
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1207
+#, python-format
+msgid "Failed to delete file: %(name)s"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1074
+msgid "Renaming is disabled."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1082
+msgid "Path does not exist."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1091
+#, python-format
+msgid "Successfully renamed \"%(src)s\" to \"%(dst)s\""
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1095
+#, python-format
+msgid "Failed to rename: %(error)s"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1108
+#, python-format
+msgid "Rename %(name)s"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1145
+#, python-format
+msgid "Error saving changes to %(name)s."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1149
+#, python-format
+msgid "Changes to %(name)s saved successfully."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1157
+#, python-format
+msgid "Error reading %(name)s."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1160
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1169
+#, python-format
+msgid "Unexpected error while reading from %(name)s"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1166
+#, python-format
+msgid "Cannot edit %(name)s."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1184
+#, python-format
+msgid "Editing %(path)s"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/__init__.py:1196
+msgid "File deletion is disabled."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/fileadmin/s3.py:156
+msgid "Cannot operate on non empty directories"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/mongoengine/view.py:558
+#, python-format
+msgid "Failed to get model. %(error)s"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/mongoengine/view.py:577
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/peewee/view.py:462
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/pymongo/view.py:317
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/sqla/view.py:1166
+#, python-format
+msgid "Failed to create record. %(error)s"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/mongoengine/view.py:603
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/peewee/view.py:481
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/pymongo/view.py:342
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/sqla/view.py:1192
+#: venv/lib/python3.13/site-packages/flask_admin/model/base.py:2427
+#: venv/lib/python3.13/site-packages/flask_admin/model/base.py:2434
+#: venv/lib/python3.13/site-packages/flask_admin/model/base.py:2437
+#, python-format
+msgid "Failed to update record. %(error)s"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/mongoengine/view.py:626
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/peewee/view.py:496
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/pymongo/view.py:367
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/sqla/view.py:1217
+#, python-format
+msgid "Failed to delete record. %(error)s"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/mongoengine/view.py:676
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/peewee/view.py:532
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/pymongo/view.py:396
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/sqla/view.py:1254
+#: venv/lib/python3.13/site-packages/flask_admin/model/base.py:2238
+#, python-format
+msgid "Record was successfully deleted."
+msgid_plural "%(count)s records were successfully deleted."
+msgstr[0] ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/mongoengine/view.py:682
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/peewee/view.py:538
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/pymongo/view.py:401
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/sqla/view.py:1262
+#, python-format
+msgid "Failed to delete records. %(error)s"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/sqla/fields.py:127
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/sqla/fields.py:177
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/sqla/fields.py:182
+#: venv/lib/python3.13/site-packages/flask_admin/model/fields.py:178
+#: venv/lib/python3.13/site-packages/flask_admin/model/fields.py:227
+msgid "Not a valid choice"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/sqla/validators.py:44
+msgid "Already exists."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/sqla/validators.py:64
+#, python-format
+msgid "At least %(num)d item is required"
+msgid_plural "At least %(num)d items are required"
+msgstr[0] ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/sqla/validators.py:79
+msgid "Not a valid ISO currency code (e.g. USD, EUR, CNY)."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/sqla/validators.py:87
+msgid "Not a valid color (e.g. \"red\", \"#f00\", \"#ff0000\")."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/contrib/sqla/view.py:1130
+#, python-format
+msgid "Integrity error. %(message)s"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/form/fields.py:98
+msgid "Invalid time format"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/form/fields.py:147
+msgid "Invalid Choice: could not coerce"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/form/fields.py:221
+msgid "Invalid JSON"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/form/upload.py:213
+msgid "Invalid file extension"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/form/upload.py:220
+#: venv/lib/python3.13/site-packages/flask_admin/form/upload.py:290
+#, python-format
+msgid "File \"%s\" already exists."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/form/validators.py:16
+msgid "This field requires at least one item."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/model/base.py:1702
+msgid "There are no items in the table."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/model/base.py:1711
+#, python-format
+msgid "Invalid Filter Value: %(value)s"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/model/base.py:2102
+msgid "Record was successfully created."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/model/base.py:2146
+#: venv/lib/python3.13/site-packages/flask_admin/model/base.py:2198
+#: venv/lib/python3.13/site-packages/flask_admin/model/base.py:2231
+#: venv/lib/python3.13/site-packages/flask_admin/model/base.py:2419
+msgid "Record does not exist."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/model/base.py:2155
+#: venv/lib/python3.13/site-packages/flask_admin/model/base.py:2423
+msgid "Record was successfully saved."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/model/base.py:2344
+msgid "Tablib dependency not installed."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/model/base.py:2371
+#, python-format
+msgid "Export type \"%(type)s not supported."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/model/template.py:79
+#: venv/lib/python3.13/site-packages/flask_admin/model/template.py:86
+msgid "View Record"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/model/template.py:93
+#: venv/lib/python3.13/site-packages/flask_admin/model/template.py:100
+msgid "Edit Record"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/model/template.py:107
+msgid "Delete Record"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/model/widgets.py:62
+msgid "Please select model"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/model/widgets.py:116
+msgid "No"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_admin/model/widgets.py:117
+msgid "Yes"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_wtf/file.py:55
+#: venv/lib/python3.13/site-packages/wtforms/validators.py:293
+#: venv/lib/python3.13/site-packages/wtforms/validators.py:323
+msgid "This field is required."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_wtf/file.py:94
+#, python-brace-format
+msgid "File does not have an approved extension: {extensions}"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/flask_wtf/file.py:101
+msgid "File does not have an approved extension."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/test/integ/test_sendgrid.py:333
+#: venv/lib/python3.13/site-packages/test/integ/test_sendgrid.py:340
+#: venv/lib/python3.13/site-packages/test/integ/test_sendgrid.py:347
+msgid "global"
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/validators.py:86
+#, python-format
+msgid "Invalid field name '%s'."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/validators.py:99
+#, python-format
+msgid "Field must be equal to %(other_name)s."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/validators.py:146
+#, python-format
+msgid "Field must be at least %(min)d character long."
+msgid_plural "Field must be at least %(min)d characters long."
+msgstr[0] ""
+
+#: venv/lib/python3.13/site-packages/wtforms/validators.py:152
+#, python-format
+msgid "Field cannot be longer than %(max)d character."
+msgid_plural "Field cannot be longer than %(max)d characters."
+msgstr[0] ""
+
+#: venv/lib/python3.13/site-packages/wtforms/validators.py:158
+#, python-format
+msgid "Field must be exactly %(max)d character long."
+msgid_plural "Field must be exactly %(max)d characters long."
+msgstr[0] ""
+
+#: venv/lib/python3.13/site-packages/wtforms/validators.py:164
+#, python-format
+msgid "Field must be between %(min)d and %(max)d characters long."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/validators.py:216
+#, python-format
+msgid "Number must be at least %(min)s."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/validators.py:219
+#, python-format
+msgid "Number must be at most %(max)s."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/validators.py:222
+#, python-format
+msgid "Number must be between %(min)s and %(max)s."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/validators.py:358
+msgid "Invalid input."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/validators.py:422
+msgid "Invalid email address."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/validators.py:460
+msgid "Invalid IP address."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/validators.py:503
+msgid "Invalid Mac address."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/validators.py:540
+msgid "Invalid URL."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/validators.py:561
+msgid "Invalid UUID."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/validators.py:595
+#, python-format
+msgid "Invalid value, must be one of: %(values)s."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/validators.py:631
+#, python-format
+msgid "Invalid value, can't be any of: %(values)s."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/validators.py:700
+msgid "This field cannot be edited."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/validators.py:716
+msgid "This field is disabled and cannot have a value."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/csrf/core.py:96
+msgid "Invalid CSRF Token."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/csrf/session.py:64
+msgid "CSRF token missing."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/csrf/session.py:72
+msgid "CSRF failed."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/csrf/session.py:77
+msgid "CSRF token expired."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/fields/choices.py:142
+msgid "Invalid Choice: could not coerce."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/fields/choices.py:149
+#: venv/lib/python3.13/site-packages/wtforms/fields/choices.py:203
+msgid "Choices cannot be None."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/fields/choices.py:155
+msgid "Not a valid choice."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/fields/choices.py:194
+msgid "Invalid choice(s): one or more data inputs could not be coerced."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/fields/choices.py:212
+#, python-format
+msgid "'%(value)s' is not a valid choice for this field."
+msgid_plural "'%(value)s' are not valid choices for this field."
+msgstr[0] ""
+
+#: venv/lib/python3.13/site-packages/wtforms/fields/datetime.py:52
+msgid "Not a valid datetime value."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/fields/datetime.py:78
+msgid "Not a valid date value."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/fields/datetime.py:104
+msgid "Not a valid time value."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/fields/datetime.py:149
+msgid "Not a valid week value."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/fields/numeric.py:82
+#: venv/lib/python3.13/site-packages/wtforms/fields/numeric.py:92
+msgid "Not a valid integer value."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/fields/numeric.py:168
+msgid "Not a valid decimal value."
+msgstr ""
+
+#: venv/lib/python3.13/site-packages/wtforms/fields/numeric.py:197
+msgid "Not a valid float value."
+msgstr ""
+
+#~ msgid "Payment information is required. Please complete the payment form."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "There was an issue with your saved"
+#~ " payment profile. Please provide payment"
+#~ " information again."
+#~ msgstr ""
+
+#~ msgid "Payment information is required to create a customer profile."
+#~ msgstr ""
+
+#~ msgid "An unexpected error occurred. Please try again."
+#~ msgstr "エラーが発生しました。もう一度お試しください。"
+
+#~ msgid "An error occurred. Please try again."
+#~ msgstr "エラーが発生しました。もう一度お試しください。"
+
+#~ msgid "Why Choose Us?"
+#~ msgstr ""
+
+#~ msgid "Daily Exercises"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Receive carefully crafted exercises every "
+#~ "day to keep your learning consistent."
+#~ msgstr ""
+
+#~ msgid "Track Progress"
+#~ msgstr ""
+
+#~ msgid "Monitor your improvement with detailed progress tracking and analytics."
+#~ msgstr ""
+
+#~ msgid "Bidirectional Learning"
+#~ msgstr "双方向学習"
+
+#~ msgid "Practice both Japanese to English and English to Japanese translations."
+#~ msgstr "日本語から英語、英語から日本語の両方の翻訳練習ができます。"
+
+#~ msgid "Credit or debit card"
+#~ msgstr ""
+
+#~ msgid "We will attempt to use your saved payment method."
+#~ msgstr ""
+
+#~ msgid "Confirm Subscription"
+#~ msgstr "月額サブスクリプション"
+
+#~ msgid "Your subscription is set to cancel."
+#~ msgstr "サブスクリプションはキャンセルされる予定です。"
+

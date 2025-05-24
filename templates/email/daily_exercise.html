@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #4A90E2;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 0 0 5px 5px;
+        }
+        .exercise {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .question {
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .option-button {
+            display: block;
+            width: 100%;
+            padding: 15px 20px;
+            background-color: #ffffff;
+            color: #333;
+            text-decoration: none;
+            border: 2px solid #4A90E2;
+            border-radius: 5px;
+            text-align: left;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+        }
+        .option-button:hover {
+            background-color: #4A90E2;
+            color: white;
+        }
+        .cta-button {
+            display: inline-block;
+            margin: 24px 0 0 0;
+            padding: 14px 28px;
+            background: #4A90E2;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-align: center;
+        }
+        .cta-button:hover {
+            background: #357ABD;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .romaji {
+            color: #666;
+            font-style: italic;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Your Daily Moikai Practice</h1>
+        <p>Language: {{ card.front_language }}</p>
+    </div>
+    
+    <div class="content">
+        <p>Hello {{ user.email }},</p>
+        
+        <p>Here's your daily language practice exercise. Click on the answer you think is correct.</p>
+        
+        <div class="exercise">
+            <div class="question">{{ card.front|replace('\n', '<br>')|safe }}</div>
+            <div class="options">
+                <a href="{{ url_for('practice', card_id=card.id, answer=card.option_1, _external=True) }}" class="option-button">
+                    1. {{ card.option_1 }}
+                </a>
+                <a href="{{ url_for('practice', card_id=card.id, answer=card.option_2, _external=True) }}" class="option-button">
+                    2. {{ card.option_2 }}
+                </a>
+                <a href="{{ url_for('practice', card_id=card.id, answer=card.option_3, _external=True) }}" class="option-button">
+                    3. {{ card.option_3 }}
+                </a>
+                <a href="{{ url_for('practice', card_id=card.id, answer=card.option_4, _external=True) }}" class="option-button">
+                    4. {{ card.option_4 }}
+                </a>
+            </div>
+            <a href="{{ url_for('practice', card_id=card.id, _external=True) }}" class="cta-button">
+                🔊 Practice with audio online
+            </a>
+        </div>
+        
+        <p>Remember, consistent practice is the key to language mastery!</p>
+    </div>
+    
+    <div class="footer">
+        <p>This email was sent to {{ user.email }}. If you wish to unsubscribe, click <a href="{{ unsubscribe_url }}">here</a>.</p>
+        <p>© 2025 Moikai. All rights reserved.</p>
+    </div>
+</body>
+</html> 
