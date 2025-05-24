@@ -6,10 +6,10 @@ on:
   workflow_dispatch:
 
 env:
-  AWS_REGION: us-east-1
+  AWS_REGION: us-east-2
   ECR_REPOSITORY: moikai
   ECS_SERVICE: moikai-service
-  ECS_CLUSTER: moikai-cluster
+  ECS_CLUSTER: moikai-app-cluster
   CONTAINER_NAME: moikai
   TASK_DEFINITION_PATH: task-definition.json
 
