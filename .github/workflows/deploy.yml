@@ -11,7 +11,7 @@ env:
   ECS_SERVICE: moikai-service
   ECS_CLUSTER: moikai-cluster
   CONTAINER_NAME: moikai
-  TASK_DEFINITION_PATH: aws/task-definition.json
+  TASK_DEFINITION_PATH: task-definition.json
 
 permissions:
   contents: read
