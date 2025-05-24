@@ -10,7 +10,7 @@ env:
   ECR_REPOSITORY: moikai
   ECS_SERVICE: moikai-service
   ECS_CLUSTER: moikai-cluster
-  CONTAINER_NAME: moikai-container
+  CONTAINER_NAME: moikai
   TASK_DEFINITION_PATH: aws/task-definition.json
 
 permissions:
