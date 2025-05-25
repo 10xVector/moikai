@@ -6,6 +6,7 @@
 # Keys and secrets
 keys/
 *.json
+!task-definition.json
 *.pem
 *.key
 *.rtf
