@@ -19,13 +19,7 @@
                     "protocol": "tcp"
                 }
             ],
-            "environment": [
-                { "name": "FLASK_APP", "value": "app.py" },
-                { "name": "FLASK_ENV", "value": "production" },
-                { "name": "MAIL_USE_TLS", "value": "True" },
-                { "name": "MAIL_PORT", "value": "587" },
-                { "name": "AWS_REGION", "value": "us-east-2" }
-            ],
+            "environment": [],
             "secrets": [
                 { "name": "ADMIN_PASSWORD", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/ADMIN_PASSWORD" },
                 { "name": "AWS_ACCESS_KEY_ID", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/AWS_ACCESS_KEY_ID" },
@@ -44,7 +38,12 @@
                 { "name": "STRIPE_LIVE_PRICE_ID", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/STRIPE_LIVE_PRICE_ID" },
                 { "name": "STRIPE_TEST_PUBLIC_KEY", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/STRIPE_TEST_PUBLIC_KEY" },
                 { "name": "STRIPE_TEST_SECRET_KEY", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/STRIPE_TEST_SECRET_KEY" },
-                { "name": "STRIPE_TEST_PRICE_ID", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/STRIPE_TEST_PRICE_ID" }
+                { "name": "STRIPE_TEST_PRICE_ID", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/STRIPE_TEST_PRICE_ID" },
+                { "name": "FLASK_APP", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/FLASK_APP" },
+                { "name": "FLASK_ENV", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/FLASK_ENV" },
+                { "name": "MAIL_USE_TLS", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/MAIL_USE_TLS" },
+                { "name": "MAIL_PORT", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/MAIL_PORT" },
+                { "name": "AWS_REGION", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/AWS_REGION" }
             ],
             "logConfiguration": {
                 "logDriver": "awslogs",

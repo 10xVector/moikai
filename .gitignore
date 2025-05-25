@@ -12,6 +12,7 @@ keys/
 *.rtf
 *.txt
 !requirements.txt
+create-ssm-params.sh
 
 # Python
 __pycache__/
