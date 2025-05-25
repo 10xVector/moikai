@@ -8,7 +8,7 @@ on:
 env:
   AWS_REGION: us-east-2
   ECR_REPOSITORY: moikai
-  ECS_SERVICE: moikai-service
+  ECS_SERVICE: moikai-service-xf3xn3cz
   ECS_CLUSTER: moikai-app-cluster
   CONTAINER_NAME: moikai
   TASK_DEFINITION_PATH: task-definition.json
