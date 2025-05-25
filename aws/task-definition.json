@@ -1,0 +1,68 @@
+{
+    "family": "moikai",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "1024",
+    "memory": "2048",
+    "executionRoleArn": "arn:aws:iam::465535123942:role/moikai-ecs-task-role",
+    "taskRoleArn": "arn:aws:iam::465535123942:role/moikai-ecs-task-role",
+    "containerDefinitions": [
+        {
+            "name": "moikai",
+            "image": "465535123942.dkr.ecr.us-east-1.amazonaws.com/moikai:latest",
+            "essential": true,
+            "portMappings": [
+                {
+                    "containerPort": 5000,
+                    "protocol": "tcp"
+                }
+            ],
+            "environment": [
+                {
+                    "name": "FLASK_ENV",
+                    "value": "production"
+                }
+            ],
+            "secrets": [
+                {
+                    "name": "SECRET_KEY",
+                    "valueFrom": "arn:aws:ssm:us-east-1:465535123942:parameter/moikai/secret-key"
+                },
+                {
+                    "name": "DATABASE_URL",
+                    "valueFrom": "arn:aws:ssm:us-east-1:465535123942:parameter/moikai/database-url"
+                },
+                {
+                    "name": "REDIS_URL",
+                    "valueFrom": "arn:aws:ssm:us-east-1:465535123942:parameter/moikai/redis-url"
+                },
+                {
+                    "name": "AWS_ACCESS_KEY_ID",
+                    "valueFrom": "arn:aws:ssm:us-east-1:465535123942:parameter/moikai/aws-access-key"
+                },
+                {
+                    "name": "AWS_SECRET_ACCESS_KEY",
+                    "valueFrom": "arn:aws:ssm:us-east-1:465535123942:parameter/moikai/aws-secret-key"
+                },
+                {
+                    "name": "STRIPE_SECRET_KEY",
+                    "valueFrom": "arn:aws:ssm:us-east-1:465535123942:parameter/moikai/stripe-secret-key"
+                },
+                {
+                    "name": "STRIPE_WEBHOOK_SECRET",
+                    "valueFrom": "arn:aws:ssm:us-east-1:465535123942:parameter/moikai/stripe-webhook-secret"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/moikai",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            }
+        }
+    ]
+} 

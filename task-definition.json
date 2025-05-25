@@ -1,0 +1,59 @@
+{
+    "family": "moikai",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "256",
+    "memory": "512",
+    "executionRoleArn": "arn:aws:iam::465535123942:role/moikai-ecs-task-role",
+    "taskRoleArn": "arn:aws:iam::465535123942:role/moikai-ecs-task-role",
+    "containerDefinitions": [
+        {
+            "name": "moikai",
+            "image": "465535123942.dkr.ecr.us-east-2.amazonaws.com/moikai:latest",
+            "essential": true,
+            "portMappings": [
+                {
+                    "containerPort": 5000,
+                    "protocol": "tcp"
+                }
+            ],
+            "environment": [
+                { "name": "FLASK_APP", "value": "app.py" },
+                { "name": "FLASK_ENV", "value": "production" },
+                { "name": "MAIL_USE_TLS", "value": "True" },
+                { "name": "MAIL_PORT", "value": "587" },
+                { "name": "AWS_REGION", "value": "us-east-2" }
+            ],
+            "secrets": [
+                { "name": "ADMIN_PASSWORD", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/ADMIN_PASSWORD" },
+                { "name": "AWS_ACCESS_KEY_ID", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/AWS_ACCESS_KEY_ID" },
+                { "name": "AWS_SECRET_ACCESS_KEY", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/AWS_SECRET_ACCESS_KEY" },
+                { "name": "DATABASE_URL", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/DATABASE_URL" },
+                { "name": "GOOGLE_CREDENTIALS_JSON", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/GOOGLE_CREDENTIALS_JSON" },
+                { "name": "MAIL_DEFAULT_SENDER", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/MAIL_DEFAULT_SENDER" },
+                { "name": "MAIL_PASSWORD", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/MAIL_PASSWORD" },
+                { "name": "MAIL_SERVER", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/MAIL_SERVER" },
+                { "name": "MAIL_USERNAME", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/MAIL_USERNAME" },
+                { "name": "OPENAI_API_KEY", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/OPENAI_API_KEY" },
+                { "name": "REDIS_URL", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/REDIS_URL" },
+                { "name": "SECRET_KEY", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/SECRET_KEY" },
+                { "name": "STRIPE_LIVE_PUBLIC_KEY", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/STRIPE_LIVE_PUBLIC_KEY" },
+                { "name": "STRIPE_LIVE_SECRET_KEY", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/STRIPE_LIVE_SECRET_KEY" },
+                { "name": "STRIPE_LIVE_PRICE_ID", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/STRIPE_LIVE_PRICE_ID" },
+                { "name": "STRIPE_TEST_PUBLIC_KEY", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/STRIPE_TEST_PUBLIC_KEY" },
+                { "name": "STRIPE_TEST_SECRET_KEY", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/STRIPE_TEST_SECRET_KEY" },
+                { "name": "STRIPE_TEST_PRICE_ID", "valueFrom": "arn:aws:ssm:us-east-2:465535123942:parameter/moikai/STRIPE_TEST_PRICE_ID" }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/moikai",
+                    "awslogs-region": "us-east-2",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            }
+        }
+    ]
+} 
