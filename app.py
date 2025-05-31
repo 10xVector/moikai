@@ -243,6 +243,7 @@ def subscribe():
         email = None
         password = None # Will not be used if current_user is authenticated
         user_is_authenticated_with_stripe_id = current_user.is_authenticated and current_user.stripe_customer_id
+        discount_code = request.form.get('discount_code')
 
         if current_user.is_authenticated:
             email = current_user.email
@@ -301,14 +302,26 @@ def subscribe():
             
             user.stripe_customer_id = customer_id # Ensure it's set/updated on our user model
 
-            # Create subscription with trial period
-            subscription = stripe.Subscription.create(
-                customer=customer_id,
-                items=[{'price': STRIPE_PRICE_ID}],
-                trial_period_days=7,
-                payment_behavior='default_incomplete',
-                expand=['latest_invoice.payment_intent']
-            )
+            # Create subscription with trial period and apply discount if provided
+            subscription_params = {
+                'customer': customer_id,
+                'items': [{'price': STRIPE_PRICE_ID}],
+                'trial_period_days': 7,
+                'payment_behavior': 'default_incomplete',
+                'expand': ['latest_invoice.payment_intent']
+            }
+
+            # Apply discount code if provided
+            if discount_code:
+                try:
+                    # Verify the coupon exists and is valid
+                    coupon = stripe.Coupon.retrieve(discount_code)
+                    subscription_params['coupon'] = discount_code
+                except stripe.error.StripeError as e:
+                    flash(_('Invalid discount code. Please try again.'), 'danger')
+                    return redirect(url_for('subscribe'))
+
+            subscription = stripe.Subscription.create(**subscription_params)
             
             user.subscribed = True
             user.subscription_status = 'trial' if 'trial_period_days' in subscription_params else 'active'
@@ -355,6 +368,14 @@ def subscribe():
             price_obj = stripe.Price.retrieve(STRIPE_PRICE_ID)
             amount = price_obj['unit_amount'] / 100  # Stripe stores in cents
             currency = price_obj['currency'].upper()
+            
+            # Calculate discounted amount if coupon was applied
+            if discount_code and hasattr(subscription, 'discount'):
+                if subscription.discount.coupon.percent_off:
+                    amount = amount * (1 - subscription.discount.coupon.percent_off / 100)
+                elif subscription.discount.coupon.amount_off:
+                    amount = max(0, amount - subscription.discount.coupon.amount_off / 100)
+
             if user.subscription_status == 'trial':
                 charge_message = f"After your 7-day free trial, you will be charged ${amount:.2f} {currency}/month."
             else:
@@ -532,7 +553,7 @@ def generate_card():
 
     client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
     response = client.chat.completions.create(
-        model="gpt-4",
+        model="gpt-4o",
         messages=[{"role": "user", "content": prompt}]
     )
     import json

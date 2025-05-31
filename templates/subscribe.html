@@ -144,6 +144,11 @@
                 </div>
             </div>
 
+            <div class="mb-3">
+                <label for="discount_code" class="form-label">{{ _('Discount Code (Optional)') }}</label>
+                <input type="text" class="form-control" id="discount_code" name="discount_code" placeholder="Enter your discount code">
+            </div>
+
             <div class="mb-3 payment-box">
                 <label for="payment-element" class="form-label">{{ _('Payment') }}</label>
                 <div id="payment-element"><!-- Stripe Payment Element will be injected here --></div>

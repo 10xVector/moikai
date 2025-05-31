@@ -1,5 +1,5 @@
 from app import app, db
-from models import User, Card
+from models import User, Card, UserExercise
 from datetime import datetime, timedelta
 import json
 import random
@@ -95,19 +95,75 @@ class ExercisePool:
     def get_exercise_for_user(cls, user):
         """Get an appropriate card for a user."""
         with app.app_context():
-            # Get cards the user hasn't seen yet (approximation)
-            # In production, you'd have a UserExercises table to track this
-            # For now, match by learning_direction (e.g., 'ja-en', 'en-ja')
+            # Get cards the user hasn't seen yet
+            completed_card_ids = [ue.card_id for ue in UserExercise.query.filter_by(user_id=user.id).all()]
             direction = user.learning_direction
+            
             if direction == 'ja-en':
-                card = Card.query.filter_by(front_language='ja', back_language='en').order_by(func.random()).first()
+                available_cards = Card.query.filter(
+                    ~Card.id.in_(completed_card_ids),
+                    Card.front_language == 'ja',
+                    Card.back_language == 'en'
+                ).all()
             elif direction == 'en-ja':
-                card = Card.query.filter_by(front_language='en', back_language='ja').order_by(func.random()).first()
+                available_cards = Card.query.filter(
+                    ~Card.id.in_(completed_card_ids),
+                    Card.front_language == 'en',
+                    Card.back_language == 'ja'
+                ).all()
             else:
-                card = None
-            # Check pool status after selecting a card
-            cls.check_pool_status()
-            return card
+                available_cards = []
+
+            # If no cards are available, generate new ones
+            if not available_cards:
+                app.logger.info(f"No available cards for user {user.email}. Generating new cards...")
+                cls.generate_new_cards(direction)
+                # Try to get a card again after generation
+                if direction == 'ja-en':
+                    available_cards = Card.query.filter(
+                        ~Card.id.in_(completed_card_ids),
+                        Card.front_language == 'ja',
+                        Card.back_language == 'en'
+                    ).all()
+                elif direction == 'en-ja':
+                    available_cards = Card.query.filter(
+                        ~Card.id.in_(completed_card_ids),
+                        Card.front_language == 'en',
+                        Card.back_language == 'ja'
+                    ).all()
+
+            # If still no cards available (shouldn't happen), return None
+            if not available_cards:
+                app.logger.error(f"Failed to generate new cards for user {user.email}")
+                return None
+
+            # Return a random card from available ones
+            return random.choice(available_cards)
+
+    @classmethod
+    def generate_new_cards(cls, direction, batch_size=20):
+        """Generate new cards for a specific direction."""
+        try:
+            # Generate a batch of new cards
+            new_cards = generate_batch(batch_size)
+            
+            # Add the cards to the database
+            for card_data in new_cards:
+                card = Card(
+                    date=datetime.utcnow(),
+                    front_language='ja' if direction == 'ja-en' else 'en',
+                    back_language='en' if direction == 'ja-en' else 'ja',
+                    **card_data
+                )
+                db.session.add(card)
+            
+            db.session.commit()
+            app.logger.info(f"Generated {batch_size} new cards for {direction}")
+            return True
+        except Exception as e:
+            app.logger.error(f"Error generating new cards: {str(e)}")
+            db.session.rollback()
+            return False
 
 def generate_exercises():
     """Generate and add exercises to the database."""
