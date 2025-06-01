@@ -144,9 +144,12 @@
                 </div>
             </div>
 
-            <div class="mb-3">
-                <label for="discount_code" class="form-label">{{ _('Discount Code (Optional)') }}</label>
-                <input type="text" class="form-control" id="discount_code" name="discount_code" placeholder="Enter your discount code">
+            <div class="mb-3" style="display: flex; gap: 8px; align-items: flex-end;">
+                <div style="flex:1;">
+                    <label for="discount_code" class="form-label">{{ _('Discount Code (Optional)') }}</label>
+                    <input type="text" class="form-control" id="discount_code" name="discount_code" placeholder="Enter your discount code">
+                </div>
+                <button type="button" id="apply-discount-btn" class="btn btn-outline-primary" style="height: 38px; margin-bottom:2px;">Apply</button>
             </div>
 
             <!-- Price Breakdown -->
@@ -342,10 +345,17 @@ form.addEventListener('submit', async function(event) {
 </script>
 <script>
 const discountInput = document.getElementById('discount_code');
+const applyDiscountBtn = document.getElementById('apply-discount-btn');
 const subtotalAmount = document.getElementById('subtotal-amount');
 const discountAmount = document.getElementById('discount-amount');
 const totalAmount = document.getElementById('total-amount');
 const paymentBox = document.querySelector('.payment-box');
+
+function setApplyBtnState() {
+    applyDiscountBtn.disabled = !discountInput.value.trim();
+}
+discountInput.addEventListener('input', setApplyBtnState);
+document.addEventListener('DOMContentLoaded', setApplyBtnState);
 
 async function updatePriceSummary() {
     const code = discountInput.value.trim();
@@ -365,9 +375,7 @@ async function updatePriceSummary() {
     }
 }
 
-discountInput.addEventListener('input', () => {
-    updatePriceSummary();
-});
+applyDiscountBtn.addEventListener('click', updatePriceSummary);
 
 document.addEventListener('DOMContentLoaded', () => {
     updatePriceSummary();
