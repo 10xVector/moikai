@@ -283,54 +283,63 @@ def subscribe():
                     stripe.Customer.retrieve(customer_id) # Validate Stripe customer ID
                 except stripe.error.StripeError:
                     customer_id = None # Invalid or deleted in Stripe, force creation
-                    # No need to ask for payment info again, Payment Element already handled it
-            
             if not customer_id: # Create new customer if needed
-                customer = stripe.Customer.create(
-                    email=email
-                )
+                customer = stripe.Customer.create(email=email)
                 customer_id = customer.id
 
             # Ensure user object exists and has stripe_customer_id set
             user = User.query.filter_by(email=email).first()
-            if not user: # Should only be for new, unauthenticated users
+            if not user:
                 user = User(email=email, learning_direction=learning_direction)
-                user.set_password(password) # Password is set only for new users
+                user.set_password(password)
                 db.session.add(user)
-            else: 
-                user.learning_direction = learning_direction # Update learning direction if changed
-            
-            user.stripe_customer_id = customer_id # Ensure it's set/updated on our user model
+            else:
+                user.learning_direction = learning_direction
+            user.stripe_customer_id = customer_id
 
-            # Create subscription with trial period and apply discount if provided
+            # --- Discount calculation ---
+            subtotal = 2.00
+            discount = 0.00
+            total = subtotal
+            coupon = None
+            if discount_code:
+                try:
+                    coupon = stripe.Coupon.retrieve(discount_code)
+                    if coupon.percent_off:
+                        discount = round(subtotal * (coupon.percent_off / 100), 2)
+                    elif coupon.amount_off:
+                        discount = round(coupon.amount_off / 100, 2)
+                    total = max(0.00, round(subtotal - discount, 2))
+                except Exception:
+                    flash(_('Invalid discount code. Please try again.'), 'danger')
+                    return redirect(url_for('subscribe'))
+
+            # --- Subscription params ---
             subscription_params = {
                 'customer': customer_id,
                 'items': [{'price': STRIPE_PRICE_ID}],
                 'trial_period_days': 7,
-                'payment_behavior': 'default_incomplete',
                 'expand': ['latest_invoice.payment_intent']
             }
+            if discount_code and coupon:
+                subscription_params['coupon'] = discount_code
 
-            # Apply discount code if provided
-            if discount_code:
-                try:
-                    # Verify the coupon exists and is valid
-                    coupon = stripe.Coupon.retrieve(discount_code)
-                    subscription_params['coupon'] = discount_code
-                except stripe.error.StripeError as e:
-                    flash(_('Invalid discount code. Please try again.'), 'danger')
-                    return redirect(url_for('subscribe'))
+            # If total is $0, do not require payment info
+            if total == 0.00:
+                subscription_params['payment_behavior'] = 'default_incomplete'
+            else:
+                subscription_params['payment_behavior'] = 'default_incomplete'  # Existing logic, payment required
 
             subscription = stripe.Subscription.create(**subscription_params)
-            
+
             user.subscribed = True
             user.subscription_status = 'trial' if 'trial_period_days' in subscription_params else 'active'
             user.stripe_subscription_id = subscription.id
-            
+
             if hasattr(subscription, 'created') and subscription.created is not None:
                 user.subscription_start = datetime.utcfromtimestamp(subscription.created)
             else:
-                user.subscription_start = datetime.utcnow() # Fallback, though .created should always be there
+                user.subscription_start = datetime.utcnow()
                 app.logger.warning(
                     f"Stripe subscription {getattr(subscription, 'id', 'Unknown')} for user {user.email} "
                     f"created with missing or None 'created' timestamp."
@@ -346,18 +355,18 @@ def subscribe():
                     f"Subscription status: {getattr(subscription, 'status', 'Unknown')}. "
                     f"Raw current_period_end: {getattr(subscription, 'current_period_end', 'NotSet')}"
                 )
-            
+
             if 'trial_period_days' in subscription_params:
                 if hasattr(subscription, 'trial_end') and subscription.trial_end is not None:
                     user.trial_end = datetime.utcfromtimestamp(subscription.trial_end)
                 else:
-                    user.trial_end = None 
+                    user.trial_end = None
                     app.logger.warning(
                         f"Stripe trial subscription {getattr(subscription, 'id', 'Unknown')} for user {user.email} "
                         f"created without a trial_end or trial_end was None. Status: {getattr(subscription, 'status', 'Unknown')}."
                     )
-            else: # Not a trial subscription
-                user.trial_end = None # Clear trial_end
+            else:
+                user.trial_end = None
 
             db.session.commit()
 
@@ -368,31 +377,23 @@ def subscribe():
             price_obj = stripe.Price.retrieve(STRIPE_PRICE_ID)
             amount = price_obj['unit_amount'] / 100  # Stripe stores in cents
             currency = price_obj['currency'].upper()
-            
-            # Calculate discounted amount if coupon was applied
-            if discount_code and hasattr(subscription, 'discount'):
-                if subscription.discount.coupon.percent_off:
-                    amount = amount * (1 - subscription.discount.coupon.percent_off / 100)
-                elif subscription.discount.coupon.amount_off:
-                    amount = max(0, amount - subscription.discount.coupon.amount_off / 100)
+            if discount_code and coupon:
+                if coupon.percent_off:
+                    amount = amount * (1 - coupon.percent_off / 100)
+                elif coupon.amount_off:
+                    amount = max(0, amount - coupon.amount_off / 100)
 
             if user.subscription_status == 'trial':
                 charge_message = f"After your 7-day free trial, you will be charged ${amount:.2f} {currency}/month."
             else:
                 charge_message = f"You will be charged ${amount:.2f} {currency}/month."
             try:
-                msg = Message('Welcome to Moikai!',
-                            recipients=[email])
+                msg = Message('Welcome to Moikai!', recipients=[email])
                 msg.body = f'''Welcome to your daily {learning_direction} practice!
-                
-You're starting {user.subscription_status} today. 
-Access will continue until {user.current_period_end.strftime('%Y-%m-%d %H:%M UTC') if user.current_period_end else 'the end of your current period'}.
-
-{charge_message}
-
-You will receive your first exercise tomorrow.
-
-To manage your subscription, visit your account page: {url_for('account', _external=True)}'''
+                \nYou're starting {user.subscription_status} today. \nAccess will continue until {user.current_period_end.strftime('%Y-%m-%d %H:%M UTC') if user.current_period_end else 'the end of your current period'}.
+\n{charge_message}
+\nYou will receive your first exercise tomorrow.
+\nTo manage your subscription, visit your account page: {url_for('account', _external=True)}'''
                 mail.send(msg)
                 app.logger.info(f'Welcome email sent to {email}')
             except Exception as e:
@@ -725,6 +726,35 @@ def admin_logout():
     session.pop('admin_authenticated', None)
     flash('Logged out of admin.', 'info')
     return redirect(url_for('admin'))
+
+@app.route('/api/calculate_total', methods=['POST'])
+def calculate_total():
+    data = request.get_json() or {}
+    discount_code = data.get('discount_code', '').strip()
+    subtotal = 2.00
+    discount = 0.00
+    total = subtotal
+    valid = False
+    if discount_code:
+        try:
+            coupon = stripe.Coupon.retrieve(discount_code)
+            valid = True
+            if coupon.percent_off:
+                discount = round(subtotal * (coupon.percent_off / 100), 2)
+            elif coupon.amount_off:
+                discount = round(coupon.amount_off / 100, 2)
+            total = max(0.00, round(subtotal - discount, 2))
+        except Exception:
+            valid = False
+            discount = 0.00
+            total = subtotal
+    return jsonify({
+        'subtotal': f"${subtotal:.2f}",
+        'discount': f"-${discount:.2f}" if discount > 0 else "$0.00",
+        'total': f"${total:.2f}",
+        'valid': valid,
+        'numeric_total': total
+    })
 
 if __name__ == '__main__':
     with app.app_context():

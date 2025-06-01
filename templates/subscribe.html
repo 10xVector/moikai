@@ -149,6 +149,24 @@
                 <input type="text" class="form-control" id="discount_code" name="discount_code" placeholder="Enter your discount code">
             </div>
 
+            <!-- Price Breakdown -->
+            <div class="mb-3" id="price-summary" style="background:#FFF9E5; border:1.5px solid #FFE066; border-radius:12px; padding:16px; margin-bottom:24px;">
+                <div style="display:flex; justify-content:space-between;">
+                    <span>Subtotal:</span>
+                    <span id="subtotal-amount">$2.00</span>
+                </div>
+                <div style="display:flex; justify-content:space-between;">
+                    <span>Discount:</span>
+                    <span id="discount-amount">$0.00</span>
+                </div>
+                <hr style="margin:10px 0;">
+                <div style="display:flex; justify-content:space-between; font-weight:600;">
+                    <span>Total:</span>
+                    <span id="total-amount">$2.00</span>
+                </div>
+            </div>
+            <!-- End Price Breakdown -->
+
             <div class="mb-3 payment-box">
                 <label for="payment-element" class="form-label">{{ _('Payment') }}</label>
                 <div id="payment-element"><!-- Stripe Payment Element will be injected here --></div>
@@ -320,6 +338,39 @@ form.addEventListener('submit', async function(event) {
         showErrorDialog("Something went wrong. We're working on it!");
         submitButton.disabled = false;
     }
+});
+</script>
+<script>
+const discountInput = document.getElementById('discount_code');
+const subtotalAmount = document.getElementById('subtotal-amount');
+const discountAmount = document.getElementById('discount-amount');
+const totalAmount = document.getElementById('total-amount');
+const paymentBox = document.querySelector('.payment-box');
+
+async function updatePriceSummary() {
+    const code = discountInput.value.trim();
+    const response = await fetch('/api/calculate_total', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ discount_code: code })
+    });
+    const data = await response.json();
+    subtotalAmount.textContent = data.subtotal;
+    discountAmount.textContent = data.discount;
+    totalAmount.textContent = data.total;
+    if (data.numeric_total === 0) {
+        paymentBox.style.display = 'none';
+    } else {
+        paymentBox.style.display = '';
+    }
+}
+
+discountInput.addEventListener('input', () => {
+    updatePriceSummary();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    updatePriceSummary();
 });
 </script>
 {% endblock %} 
