@@ -148,6 +148,7 @@
                 <div style="flex:1;">
                     <label for="discount_code" class="form-label">{{ _('Discount Code (Optional)') }}</label>
                     <input type="text" class="form-control" id="discount_code" name="discount_code" placeholder="Enter your discount code">
+                    <div id="discount-error" class="text-danger" style="margin-top:6px;"></div>
                 </div>
                 <button type="button" id="apply-discount-btn" class="btn btn-outline-primary" style="height: 38px; margin-bottom:2px;">Apply</button>
             </div>
@@ -350,6 +351,7 @@ const subtotalAmount = document.getElementById('subtotal-amount');
 const discountAmount = document.getElementById('discount-amount');
 const totalAmount = document.getElementById('total-amount');
 const paymentBox = document.querySelector('.payment-box');
+const discountError = document.getElementById('discount-error');
 
 function setApplyBtnState() {
     applyDiscountBtn.disabled = !discountInput.value.trim();
@@ -372,6 +374,11 @@ async function updatePriceSummary() {
         paymentBox.style.display = 'none';
     } else {
         paymentBox.style.display = '';
+    }
+    if (code && !data.valid) {
+        discountError.textContent = 'Invalid discount code. Please try again.';
+    } else {
+        discountError.textContent = '';
     }
 }
 

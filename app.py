@@ -304,12 +304,20 @@ def subscribe():
             coupon = None
             if discount_code:
                 try:
-                    coupon = stripe.Coupon.retrieve(discount_code)
-                    if coupon.percent_off:
-                        discount = round(subtotal * (coupon.percent_off / 100), 2)
-                    elif coupon.amount_off:
-                        discount = round(coupon.amount_off / 100, 2)
-                    total = max(0.00, round(subtotal - discount, 2))
+                    # Try to find a promotion code first
+                    promo_codes = stripe.PromotionCode.list(code=discount_code, active=True, limit=1)
+                    if promo_codes.data:
+                        promo = promo_codes.data[0]
+                        coupon = promo.coupon
+                    else:
+                        # Fallback: try as a coupon ID
+                        coupon = stripe.Coupon.retrieve(discount_code)
+                    if coupon:
+                        if coupon.percent_off:
+                            discount = round(subtotal * (coupon.percent_off / 100), 2)
+                        elif coupon.amount_off:
+                            discount = round(coupon.amount_off / 100, 2)
+                        total = max(0.00, round(subtotal - discount, 2))
                 except Exception:
                     flash(_('Invalid discount code. Please try again.'), 'danger')
                     return redirect(url_for('subscribe'))
@@ -322,8 +330,7 @@ def subscribe():
                 'expand': ['latest_invoice.payment_intent']
             }
             if discount_code and coupon:
-                subscription_params['coupon'] = discount_code
-
+                subscription_params['coupon'] = coupon.id
             # If total is $0, do not require payment info
             if total == 0.00:
                 subscription_params['payment_behavior'] = 'default_incomplete'
@@ -730,20 +737,30 @@ def admin_logout():
 @app.route('/api/calculate_total', methods=['POST'])
 def calculate_total():
     data = request.get_json() or {}
-    discount_code = data.get('discount_code', '').strip()
+    code = data.get('discount_code', '').strip()
     subtotal = 2.00
     discount = 0.00
     total = subtotal
     valid = False
-    if discount_code:
+    coupon = None
+    if code:
         try:
-            coupon = stripe.Coupon.retrieve(discount_code)
-            valid = True
-            if coupon.percent_off:
-                discount = round(subtotal * (coupon.percent_off / 100), 2)
-            elif coupon.amount_off:
-                discount = round(coupon.amount_off / 100, 2)
-            total = max(0.00, round(subtotal - discount, 2))
+            # Try to find a promotion code first
+            promo_codes = stripe.PromotionCode.list(code=code, active=True, limit=1)
+            if promo_codes.data:
+                promo = promo_codes.data[0]
+                coupon = promo.coupon
+                valid = True
+            else:
+                # Fallback: try as a coupon ID
+                coupon = stripe.Coupon.retrieve(code)
+                valid = True
+            if coupon:
+                if coupon.percent_off:
+                    discount = round(subtotal * (coupon.percent_off / 100), 2)
+                elif coupon.amount_off:
+                    discount = round(coupon.amount_off / 100, 2)
+                total = max(0.00, round(subtotal - discount, 2))
         except Exception:
             valid = False
             discount = 0.00
